@@ -15,7 +15,8 @@ module.exports.run = async () => {
     const gitHubToken = GitHubCore.getInput('github-token') || process.env.GITHUB_TOKEN;
     const Octokit = new GitHubClient(gitHubToken);
     const {owner, repo} = GitHubContext.repo;
-    message = await getMessage({Octokit, owner, repo});
+    const ignoreDraft = GitHubCore.getInput('ignore-draft') || process.env.IGNORE_DRAFT;
+    message = await getMessage({Octokit, owner, repo, ignoreDraft});
     GitHubCore.info('Message built');
   } catch (error) {
     GitHubCore.setFailed(prefixError(error, 'GitHub'));
