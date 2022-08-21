@@ -10,6 +10,10 @@ inputs:
   slack-conversation-id:
     required: true
     description: 'Channel or group that the message will be delivered to'
+  ignore-draft:
+    required: false
+    default: 'true'
+    description: Ignore draft pull requests
 runs:
   using: 'node12'
   main: 'index.js'
