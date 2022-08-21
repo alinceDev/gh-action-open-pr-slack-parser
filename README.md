@@ -1,9 +1,11 @@
 ![Linting and Unit Tests](https://github.com/leopic/gh-action-open-pr-slack-parser/workflows/Linting%20and%20Unit%20Tests/badge.svg?branch=master)
 
 # GitHub Open PR list Slack Block Parser
+
 A GitHub action, meant to be run on a schedule, to list all open pull requests on a GitHub repository.
 
 ## Usage
+
 ```yaml
 name: Verify All Open Pull Requests
 
@@ -21,9 +23,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           slackbot-token: YOUR_SLACKBOT_TOKEN
           slack-conversation-id: YOUR_CHANNEL_ID
+          ingore-draft: true
 
 ```
 
 ## Output example
+
 The output is similar to:
 ![Usage example when integrated into Slack](https://cldup.com/_1kSIuUbXi.png)
