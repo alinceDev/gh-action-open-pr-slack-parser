@@ -1,5 +1,5 @@
-name: 'Open Pull Requests Notifier'
-description: 'Posts a message on slack with the list of open pull requests'
+name: 'Github reporting notifier'
+description: 'Posts a message on slack a reporting of github'
 inputs:
   github-token:
     required: true
@@ -10,13 +10,7 @@ inputs:
   slack-conversation-id:
     required: true
     description: 'Channel or group that the message will be delivered to'
-  ignore-draft:
-    required: false
-    default: 'true'
-    description: Ignore draft pull requests
 runs:
-  using: 'node12'
-  main: 'index.js'
-branding:
-  icon: 'calendar'
-  color: 'red'
+  using: 'node16'
+  main: 'dist/index.js'
+

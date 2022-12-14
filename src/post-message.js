@@ -1,8 +1,6 @@
-'use strict';
+import prefixError from './prefix-vendor-error-message.js';
 
-const prefixError = require('./prefix-vendor-error-message');
-
-module.exports = async ({Slack, channel, blocks}) => {
+export const postMessage = async ({Slack, channel, blocks}) => {
   try {
     const {ok} = await Slack.chat.postMessage({channel, blocks});
 

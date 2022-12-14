@@ -1,26 +1,31 @@
-'use strict';
-
-module.exports.divider = {
-  type: 'divider'
-};
-
-module.exports.link = (text, url) => {
-  return `<${url}|${text}>`;
-};
-
-module.exports.getTextBlock = text => {
-  return {
-    type: 'mrkdwn',
-    text: text
+export class SlackBlockKit
+{
+  static divider() {
+    return {
+      type: 'divider'
+    }
   }
-};
 
-module.exports.sectionWithText = text => {
-  return [
-    {
-      type: 'section',
-      text: this.getTextBlock(text)
-    },
-    this.divider
-  ]
-};
+  static link(text, url) {
+    return `<${url}|${text}>`;
+  }
+
+  static getTextBlock(text) {
+    return {
+      type: 'mrkdwn',
+      text: text
+    }
+  }
+
+  static sectionWithText(text) {
+    return [
+      {
+        type: 'section',
+        text: this.getTextBlock(text)
+      },
+      {
+        type: 'divider'
+      }
+    ]
+  }
+}

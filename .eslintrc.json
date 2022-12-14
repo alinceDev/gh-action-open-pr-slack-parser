@@ -6,12 +6,13 @@
         "jasmine": true
     },
     "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 9,
+        "sourceType": "module"
+    },
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018
     },
     "rules": {
     }

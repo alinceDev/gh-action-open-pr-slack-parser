@@ -1,22 +1,21 @@
-'use strict';
+import GitHubCore from '@actions/core';
+import github from '@actions/github';
+import {WebClient as SlackWebClient} from '@slack/web-api';
 
-const GitHubCore = require('@actions/core');
-const {context: GitHubContext, GitHub: GitHubClient} = require('@actions/github');
-const {WebClient: SlackWebClient} = require('@slack/web-api');
+import {getMessage} from './src/get-message.js';
+import {postMessage} from './src/post-message.js';
+import prefixError from './src/prefix-vendor-error-message.js';
 
-const getMessage = require('./src/get-message');
-const postMessage = require('./src/post-message');
-const prefixError = require('./src/prefix-vendor-error-message');
-
-module.exports.run = async () => {
+async function run() {
   let message;
 
   try {
     const gitHubToken = GitHubCore.getInput('github-token') || process.env.GITHUB_TOKEN;
-    const Octokit = new GitHubClient(gitHubToken);
-    const {owner, repo} = GitHubContext.repo;
-    const ignoreDraft = GitHubCore.getInput('ignore-draft') || process.env.IGNORE_DRAFT;
-    message = await getMessage({Octokit, owner, repo, ignoreDraft});
+    const Octokit = github.getOctokit(gitHubToken);
+    const context = github.context;
+
+    message = await getMessage({Octokit, context});
+
     GitHubCore.info('Message built');
   } catch (error) {
     GitHubCore.setFailed(prefixError(error, 'GitHub'));
@@ -36,8 +35,6 @@ module.exports.run = async () => {
   } else {
     GitHubCore.info('No Message');
   }
-};
-
-if (!process.argv.join('').includes('jasmine')) {
-  module.exports.run();
 }
+
+run()
