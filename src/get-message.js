@@ -9,7 +9,9 @@ const parsePullRequests = ({pullRequests}) => {
   const [{head: {repo: repoObject}}] = pullRequests;
   const head = `${getRepoURL(repoObject)} has the following PRs open:`;
   const parsePR = pr => {
-    return `- ${SlackBlockKit.link(pr.title, pr.html_url)} | by ${pr.user.login} | Review: \`${pr.requiredReviews}\`\n`;
+    if (pr.draft === false) {
+      return `- ${SlackBlockKit.link(pr.title, pr.html_url)} | by ${pr.user.login} | Review: \`${pr.requiredReviews}\`\n`;
+    }
   };
 
   const body = pullRequests.map(parsePR).join('');
