@@ -48,10 +48,10 @@ const checkBranches = (branches) => {
   for (const key in branches) {
     if (['release', 'develop', 'master'].includes(branches[key].name)) {
       if (branches[key].name === 'release') {
-        message = ':info: Branch release detected.';
+        message = 'ℹ️ Branch release detected.';
       }
       if (branches[key].protected === false) {
-        message = message + `:attention: Branch ${branches[key].name} not protected.\n`;
+        message = message + `⚠️ Branch ${branches[key].name} not protected.\n`;
       }
     }
   }
