@@ -17978,16 +17978,17 @@ async function getMessage({Octokit, context}) {
     pullRequests = await getRequiredReview({Octokit, context, pullRequests});
     const { data: branches } = await Octokit.rest.repos.listBranches({...context.repo});
     let message = parsePullRequests({pullRequests});
-    const branchesMessages = checkBranches(branches)
+    if (message !== null) {
+      const branchesMessages = checkBranches(branches)
 
-    if (branchesMessages !== '') {
-      message = message + '\n\n' + branchesMessages;
+      if (branchesMessages !== '') {
+        message = message + '\n\n' + branchesMessages;
+      }
+
+      return SlackBlockKit.sectionWithText(message);
     }
 
-    console.log(SlackBlockKit.sectionWithText(message))
-
-    return SlackBlockKit.sectionWithText(message);
-
+    return null;
   } catch (error) {
     error.message = prefix_vendor_error_message(error, 'GitHub');
     throw error;
