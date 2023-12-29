@@ -46,7 +46,7 @@ const getRequiredReview = async ({Octokit, context, pullRequests}) => {
 const checkBranches = (branches) => {
   let message = '';
   for (const key in branches) {
-    if (['release', 'develop', 'master'].includes(branches[key].name)) {
+    if (['release', 'develop', 'main'].includes(branches[key].name)) {
       if (branches[key].name === 'release') {
         message = 'ℹ️ Branch release detected.';
       }
